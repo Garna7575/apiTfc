@@ -1,0 +1,10 @@
+package com.tfc.apitfc.domain.dao;
+
+import com.tfc.apitfc.domain.entity.Users;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface UserInteface extends CrudRepository<Users, Integer> {
+    Iterable<Users> findAll();
+}
