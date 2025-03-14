@@ -6,23 +6,14 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
-@Entity
-@Inheritance(strategy = InheritanceType.JOINED)
-@Table(name = "Users")
 @Getter
 @Setter
+@Entity
+@Table(name = "users")
 public class Users {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "user_seq")
-    @SequenceGenerator(name = "user_seq", sequenceName = "user_seq", allocationSize = 1)
     @Column(name = "id", nullable = false)
-    private Long id;
-
-    @Size(max = 15)
-    @NotNull
-    @Column(name = "username", nullable = false, length = 15)
-    private String username;
+    private Integer id;
 
     @Size(max = 16)
     @NotNull
@@ -34,6 +25,10 @@ public class Users {
     @Column(name = "name", nullable = false, length = 15)
     private String name;
 
+    @NotNull
+    @Column(name = "age", nullable = false)
+    private Integer age;
+
     @Size(max = 20)
     @NotNull
     @Column(name = "surname1", nullable = false, length = 20)
@@ -43,7 +38,12 @@ public class Users {
     @Column(name = "surname2", length = 20)
     private String surname2;
 
+    @Size(max = 15)
     @NotNull
-    @Column(name = "age", nullable = false)
-    private int age;
+    @Column(name = "username", nullable = false, length = 15)
+    private String username;
+
+    @OneToOne(mappedBy = "id")
+    private Admin admin;
+
 }
