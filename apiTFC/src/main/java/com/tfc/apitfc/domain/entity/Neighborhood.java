@@ -4,20 +4,41 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @Table(name = "neighborhood")
-@Getter
-@Setter
 public class Neighborhood {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "neighborhood_id_gen")
-    @SequenceGenerator(name = "neighborhood_id_gen", sequenceName = "neighborhood_id_gen", allocationSize = 1)
-    @Column(name = "id", nullable = false)
-    private int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    @ManyToOne(fetch= FetchType.LAZY)
-    @JoinColumn(name = "adminId", updatable = true, nullable = false)
-    private Admin admin;
+    private String name;
 
+    @OneToMany(mappedBy = "neighborhood")
+    private List<Neighbor> neighbors;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public List<Neighbor> getNeighbors() {
+        return neighbors;
+    }
+
+    public void setNeighbors(List<Neighbor> neighbors) {
+        this.neighbors = neighbors;
+    }
 }
