@@ -11,4 +11,6 @@ public interface AppUserInterface extends CrudRepository<AppUser, Integer> {
     List<AppUser> findAll();
 
     AppUser findById(int id);
+
+    void deleteById(int id);
 }

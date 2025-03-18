@@ -1,8 +1,6 @@
 package com.tfc.apitfc.domain.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.util.List;
 
@@ -17,6 +15,13 @@ public class Neighborhood {
 
     @OneToMany(mappedBy = "neighborhood")
     private List<Neighbor> neighbors;
+
+    @OneToMany(mappedBy = "id")
+    private List<CommonArea> commonAreas;
+
+    @ManyToOne
+    @JoinColumn(name = "admin_id")
+    private Admin admin;
 
     public Long getId() {
         return id;

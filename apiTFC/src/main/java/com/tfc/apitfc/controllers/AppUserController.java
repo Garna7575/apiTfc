@@ -26,6 +26,17 @@ public class AppUserController {
         }
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<AppUser> findById(@PathVariable int id) {
+        AppUser user = appUserService.getUserById(id);
+
+        if (user != null){
+            return ResponseEntity.ok().body(user);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
     @PostMapping
     public void createUser(@RequestBody AppUser user) {
         if (user != null) {
