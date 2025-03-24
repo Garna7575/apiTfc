@@ -30,6 +30,10 @@ public class NeighborService {
         }
     }
 
+    public Neighbor findById(int id){
+        return neighborInterface.findById(id);
+    }
+
     public void createNeighbor(Neighbor neighbor){
         neighborInterface.save(neighbor);
     }

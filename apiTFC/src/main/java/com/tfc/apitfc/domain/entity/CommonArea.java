@@ -1,6 +1,12 @@
 package com.tfc.apitfc.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 public class CommonArea {
@@ -17,10 +23,12 @@ public class CommonArea {
 
     @ManyToOne
     @JoinColumn(name = "neighborhood_id")
+    @JsonBackReference(value = "neighborhood-commonareas")
     private Neighborhood neighborhood;
 
-    @OneToOne(mappedBy = "commonArea")
-    private Neighbor neighbor;
+    @OneToMany(mappedBy = "commonArea")
+    @JsonManagedReference(value = "commonarea-neighbors")
+    private List<Neighbor> neighbor;
 
     public int getId() {
         return id;
@@ -54,11 +62,11 @@ public class CommonArea {
         this.neighborhood = neighborhood;
     }
 
-    public Neighbor getNeighbor() {
+    public List<Neighbor> getNeighbor() {
         return neighbor;
     }
 
-    public void setNeighbor(Neighbor neighbor) {
+    public void setNeighbor(List<Neighbor> neighbor) {
         this.neighbor = neighbor;
     }
 }

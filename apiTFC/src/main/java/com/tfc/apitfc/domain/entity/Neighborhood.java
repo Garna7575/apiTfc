@@ -1,5 +1,6 @@
 package com.tfc.apitfc.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -14,9 +15,11 @@ public class Neighborhood {
     private String name;
 
     @OneToMany(mappedBy = "neighborhood")
+    @JsonManagedReference
     private List<Neighbor> neighbors;
 
     @OneToMany(mappedBy = "id")
+    @JsonManagedReference(value = "neighborhood-commonareas")
     private List<CommonArea> commonAreas;
 
     @ManyToOne
