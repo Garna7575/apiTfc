@@ -1,34 +1,30 @@
 package com.tfc.apitfc.domain.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
 import java.util.List;
 
 @Entity
-public class CommonArea {
+@Table(name = "vote")
+public class Vote {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
     private int id;
 
-    @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "isBooked", nullable = false)
-    private boolean isBooked;
+    private String description;
+
+    @OneToMany(mappedBy = "vote")
+    @JsonManagedReference("vote-neighbors")
+    private List<NeighborVote> neighborVotes;
 
     @ManyToOne
     @JoinColumn(name = "neighborhood_id")
-    @JsonBackReference(value = "neighborhood-commonareas")
+    @JsonBackReference("neighborhood-votes")
     private Neighborhood neighborhood;
-
-    @OneToMany(mappedBy = "commonArea")
-    @JsonManagedReference(value = "commonarea-neighbors")
-    private List<Neighbor> neighbors;
 
     public int getId() {
         return id;
@@ -46,12 +42,12 @@ public class CommonArea {
         this.name = name;
     }
 
-    public boolean isBooked() {
-        return isBooked;
+    public String getDescription() {
+        return description;
     }
 
-    public void setBooked(boolean booked) {
-        isBooked = booked;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Neighborhood getNeighborhood() {
@@ -62,11 +58,11 @@ public class CommonArea {
         this.neighborhood = neighborhood;
     }
 
-    public List<Neighbor> getNeighbor() {
-        return neighbors;
+    public List<NeighborVote> getNeighborVotes() {
+        return neighborVotes;
     }
 
-    public void setNeighbor(List<Neighbor> neighbor) {
-        this.neighbors = neighbor;
+    public void setNeighborVotes(List<NeighborVote> neighborVotes) {
+        this.neighborVotes = neighborVotes;
     }
 }

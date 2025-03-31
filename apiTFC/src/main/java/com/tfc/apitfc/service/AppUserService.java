@@ -11,6 +11,8 @@ import java.util.List;
 public class AppUserService {
     @Autowired
     AppUserInterface appUserInterface;
+    @Autowired
+    private PasswordHashService passwordHashService;
 
     public List<AppUser> getAllUsers() {
         return appUserInterface.findAll();
@@ -20,8 +22,17 @@ public class AppUserService {
         return appUserInterface.findById(id);
     }
 
-    public void addUser(AppUser appUser) {
-        appUserInterface.save(appUser);
+    public AppUser getUserByUsername(String username) {
+        return appUserInterface.findByUsername(username);
+    }
+
+    public AppUser getUserByUsernameAndPassword(String username, String password) {
+        return appUserInterface.findByUsernameAndPassword(username, password);
+    }
+
+    public AppUser addUser(AppUser appUser) {
+        appUser.setPassword(passwordHashService.hashPassword(appUser.getPassword()));
+        return appUserInterface.save(appUser);
     }
 
     public void deleteUser(AppUser appUser) {

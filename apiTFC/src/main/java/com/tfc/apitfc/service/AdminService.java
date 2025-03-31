@@ -16,6 +16,10 @@ public class AdminService {
         return adminInterface.findAll();
     }
 
+    public Admin getAdminById(int id) {
+        return adminInterface.findById(id);
+    }
+
     public Admin getAdminByRegistrationNumber(String registrationNumber) {
         return adminInterface.findByRegistrationNumber(registrationNumber);
     }

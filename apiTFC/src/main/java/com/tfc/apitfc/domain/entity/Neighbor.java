@@ -2,26 +2,47 @@ package com.tfc.apitfc.domain.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
-@PrimaryKeyJoinColumn(name = "id")
-public class Neighbor extends AppUser {
+public class Neighbor {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    @OneToOne
+    @JoinColumn(name = "user_id", nullable = false, unique = true)
+    @JsonBackReference(value = "neighbor-user")
+    private AppUser user;
 
     @Column(nullable = false)
     private String house;
 
     @ManyToOne
     @JoinColumn(name = "neighborhood_id")
-    @JsonBackReference
+    @JsonBackReference(value = "neighborhood-neighbors")
     private Neighborhood neighborhood;
 
-    @ManyToOne()
-    @JoinColumn(name = "reservation", nullable = true, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "fk_neighbor_commonarea"))
-    @OnDelete(action = OnDeleteAction.CASCADE)
+    @ManyToOne
+    @JoinColumn(name = "reservation_id", nullable = true)
     @JsonBackReference(value = "commonarea-neighbors")
     private CommonArea commonArea;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public AppUser getUser() {
+        return user;
+    }
+
+    public void setUser(AppUser user) {
+        this.user = user;
+    }
 
     public String getHouse() {
         return house;

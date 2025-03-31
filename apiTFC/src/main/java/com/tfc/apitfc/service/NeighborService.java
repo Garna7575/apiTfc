@@ -34,8 +34,8 @@ public class NeighborService {
         return neighborInterface.findById(id);
     }
 
-    public void createNeighbor(Neighbor neighbor){
-        neighborInterface.save(neighbor);
+    public Neighbor createNeighbor(Neighbor neighbor){
+        return neighborInterface.save(neighbor);
     }
 
     public void deleteNeighbor(int id){

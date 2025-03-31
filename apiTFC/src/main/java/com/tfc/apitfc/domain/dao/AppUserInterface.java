@@ -12,5 +12,9 @@ public interface AppUserInterface extends CrudRepository<AppUser, Integer> {
 
     AppUser findById(int id);
 
+    AppUser findByUsername(String username);
+
+    AppUser findByUsernameAndPassword(String username, String password);
+
     void deleteById(int id);
 }

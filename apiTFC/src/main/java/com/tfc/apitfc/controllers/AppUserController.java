@@ -1,7 +1,12 @@
 package com.tfc.apitfc.controllers;
 
+import com.tfc.apitfc.domain.dto.UserRequest;
 import com.tfc.apitfc.domain.entity.AppUser;
+import com.tfc.apitfc.domain.entity.Neighbor;
 import com.tfc.apitfc.service.AppUserService;
+import com.tfc.apitfc.service.NeighborService;
+import com.tfc.apitfc.service.NeighborhoodService;
+import com.tfc.apitfc.service.PasswordHashService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +20,15 @@ public class AppUserController {
     @Autowired
     AppUserService appUserService;
 
+    @Autowired
+    PasswordHashService passwordHashService;
+
+    @Autowired
+    NeighborhoodService neighborhoodService;
+
+    @Autowired
+    NeighborService neighborService;
+
     @GetMapping
     public ResponseEntity<List<AppUser>> findAll() {
         List<AppUser> users = appUserService.getAllUsers();
@@ -26,22 +40,52 @@ public class AppUserController {
         }
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<AppUser> findById(@PathVariable int id) {
-        AppUser user = appUserService.getUserById(id);
+    @GetMapping("/{username}")
+    public ResponseEntity<AppUser> findByUsername(@PathVariable String username) {
+        AppUser user = appUserService.getUserByUsername(username);
 
         if (user != null){
             return ResponseEntity.ok().body(user);
         } else {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.noContent().build();
+        }
+    }
+
+    @GetMapping("/{username}/{password}")
+    public ResponseEntity<AppUser> findByUsernameAndPassword(@PathVariable String username, @PathVariable String password) {
+        String passwordHash = passwordHashService.hashPassword(password);
+        AppUser user = appUserService.getUserByUsernameAndPassword(username, passwordHash);
+
+        if (user != null){
+            return ResponseEntity.ok().body(user);
+        } else {
+            return ResponseEntity.noContent().build();
         }
     }
 
     @PostMapping
-    public void createUser(@RequestBody AppUser user) {
-        if (user != null) {
-            appUserService.addUser(user);
-        }
+    public ResponseEntity<Neighbor> createNeighbor(@RequestBody UserRequest request) {
+        AppUser newUser = new AppUser();
+
+        newUser.setUsername(request.getUsername());
+        newUser.setPassword(request.getPassword());
+        newUser.setName(request.getName());
+        newUser.setSurname(request.getSurname());
+        newUser.setEmail(request.getEmail());
+        newUser.setAge(request.getAge());
+        newUser.setRole("NEIGHBOR");
+        newUser.setTlphNumber(request.getTlphNumber());
+
+        AppUser savedUser = appUserService.addUser(newUser);
+
+        Neighbor neighbor = new Neighbor();
+        neighbor.setUser(savedUser);
+        neighbor.setHouse(request.getHouse());
+        neighbor.setNeighborhood(neighborhoodService.getNeighborhoodById(request.getNeighborhoodId()));
+
+        Neighbor savedNeighbor = neighborService.createNeighbor(neighbor);
+
+        return ResponseEntity.ok(savedNeighbor);
     }
 
     @DeleteMapping("/{id}")

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("pocket/admin")
+@RequestMapping("/pocket/admin")
 public class AdminController {
     @Autowired
     private AdminService adminService;
@@ -25,9 +25,9 @@ public class AdminController {
         }
     }
 
-    @GetMapping("/{registrationNumber}")
-    public ResponseEntity<Admin> getAdminByRegistrationNumber(@PathVariable String registrationNumber) {
-        Admin admin = adminService.getAdminByRegistrationNumber(registrationNumber);
+    @GetMapping("/{id}")
+    public ResponseEntity<Admin> getAdminById(@PathVariable int id) {
+        Admin admin = adminService.getAdminById(id);
 
         if (admin != null) {
             return ResponseEntity.ok().body(admin);

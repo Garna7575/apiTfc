@@ -1,16 +1,15 @@
 package com.tfc.apitfc.domain.entity;
 
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
 public class AppUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
     private int id;
 
-    @Column(name = "username", nullable = false)
+    @Column(name = "username", nullable = false, unique = true)
     private String username;
 
     @Column(name = "password", nullable = false)
@@ -19,14 +18,28 @@ public class AppUser {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "surname1", nullable = false)
-    private String surname1;
+    @Column(name = "surname", nullable = false)
+    private String surname;
 
-    @Column(name = "surname2", nullable = true)
-    private String surname2;
+    @Column(name = "tlphNumber", nullable = false)
+    private String tlphNumber;
 
-    @Column(name = "age")
+    @Column(name = "email", nullable = false, unique = true)
+    private String email;
+
+    @Column(name = "age", nullable = false)
     private int age;
+
+    @Column(name= "role", nullable = false)
+    private String role;
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    private Neighbor neighbor;
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonBackReference
+    private Admin admin;
 
     public int getId() {
         return id;
@@ -42,6 +55,14 @@ public class AppUser {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getTlphNumber() {
+        return tlphNumber;
+    }
+
+    public void setTlphNumber(String tlphNumber) {
+        this.tlphNumber = tlphNumber;
     }
 
     public String getPassword() {
@@ -60,20 +81,20 @@ public class AppUser {
         this.name = name;
     }
 
-    public String getSurname1() {
-        return surname1;
+    public String getSurname() {
+        return surname;
     }
 
-    public void setSurname1(String surname1) {
-        this.surname1 = surname1;
+    public void setSurname(String surname) {
+        this.surname = surname;
     }
 
-    public String getSurname2() {
-        return surname2;
+    public String getEmail() {
+        return email;
     }
 
-    public void setSurname2(String surname2) {
-        this.surname2 = surname2;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public int getAge() {
@@ -82,5 +103,29 @@ public class AppUser {
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public Neighbor getNeighbor() {
+        return neighbor;
+    }
+
+    public void setNeighbor(Neighbor neighbor) {
+        this.neighbor = neighbor;
+    }
+
+    public Admin getAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(Admin admin) {
+        this.admin = admin;
     }
 }

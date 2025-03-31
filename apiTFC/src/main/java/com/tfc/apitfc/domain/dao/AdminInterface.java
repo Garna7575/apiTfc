@@ -14,5 +14,7 @@ public interface AdminInterface extends CrudRepository<Admin, Integer> {
 
     Admin findByRegistrationNumber(String registrationNumber);
 
+    Admin findById(int id);
+
     void deleteById(Integer id);
 }
