@@ -1,5 +1,6 @@
 package com.tfc.apitfc.service;
 
+import com.tfc.apitfc.domain.dao.NeighborInterface;
 import com.tfc.apitfc.domain.dao.NeighborVoteInterface;
 import com.tfc.apitfc.domain.dao.VoteInterface;
 import com.tfc.apitfc.domain.entity.Neighbor;
@@ -9,6 +10,8 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class VoteService {
     @Autowired
@@ -17,8 +20,23 @@ public class VoteService {
     @Autowired
     NeighborVoteInterface neighborVoteInterface;
 
+    @Autowired
+    private NeighborInterface neighborInterface;
+
     public Vote findById(int id) {
         return voteInterface.findById(id);
+    }
+
+    public List<Vote> findByNeighborhoodId(int neighborhoodId) {
+        return voteInterface.findByNeighborhoodId(neighborhoodId);
+    }
+
+    public List<Vote> getVotesByUserId(int userId) {
+        Neighbor neighbor = neighborInterface.findByUserId(userId);
+        if (neighbor == null || neighbor.getNeighborhood() == null) {
+            throw new RuntimeException("El usuario no pertenece a un vecindario");
+        }
+        return voteInterface.findVotesByNeighborhoodId(neighbor.getNeighborhood().getId());
     }
 
     @Transactional

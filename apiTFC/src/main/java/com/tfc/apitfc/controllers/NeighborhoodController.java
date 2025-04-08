@@ -1,7 +1,11 @@
 package com.tfc.apitfc.controllers;
 
+import com.tfc.apitfc.domain.entity.Admin;
 import com.tfc.apitfc.domain.entity.Neighborhood;
+import com.tfc.apitfc.domain.dto.NeighborhoodDTO;
+import com.tfc.apitfc.domain.mapper.NeighborhoodMapper;
 import com.tfc.apitfc.service.NeighborhoodService;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Base64;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("pocket/neighborhood")
@@ -19,22 +24,41 @@ public class NeighborhoodController {
     private NeighborhoodService neighborhoodService;
 
     @GetMapping
-    public ResponseEntity<List<Neighborhood>> getAllNeighborhoods() {
+    @Transactional
+    public ResponseEntity<List<NeighborhoodDTO>> getAllNeighborhoods() {
         List<Neighborhood> neighborhoods = neighborhoodService.getAllNeighborhoods();
 
         if (!neighborhoods.isEmpty()) {
-            return ResponseEntity.ok().body(neighborhoods);
+            List<NeighborhoodDTO> neighborhoodDTOs = neighborhoods.stream()
+                    .map(NeighborhoodMapper::toDTO)
+                    .collect(Collectors.toList());
+
+            return ResponseEntity.ok().body(neighborhoodDTOs);
         } else {
             return ResponseEntity.notFound().build();
         }
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Neighborhood> getNeighborhoodById(@PathVariable int id) {
+    @Transactional
+    public ResponseEntity<NeighborhoodDTO> getNeighborhoodById(@PathVariable int id) {
         Neighborhood neighborhood = neighborhoodService.getNeighborhoodById(id);
 
         if (neighborhood != null) {
-            return ResponseEntity.ok().body(neighborhood);
+            NeighborhoodDTO dto = NeighborhoodMapper.toDTO(neighborhood);
+            return ResponseEntity.ok().body(dto);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @GetMapping("/{id}/admin")
+    @Transactional
+    public ResponseEntity<Admin> getAdminByNeighborhood(@PathVariable int id) {
+        Admin admin = neighborhoodService.getAdminByNeighborhood(id);
+
+        if (admin != null) {
+            return ResponseEntity.ok().body(admin);
         } else {
             return ResponseEntity.notFound().build();
         }

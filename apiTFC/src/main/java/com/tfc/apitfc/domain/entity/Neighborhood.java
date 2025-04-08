@@ -2,6 +2,7 @@ package com.tfc.apitfc.domain.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
@@ -40,6 +41,10 @@ public class Neighborhood {
     @OneToMany(mappedBy = "neighborhood")
     @JsonManagedReference("neighborhood-votes")
     private List<Vote> votes;
+
+    @OneToMany(mappedBy = "neighborhood")
+    @JsonManagedReference("neighborhood-records")
+    private List<Record> records;
 
     public int getId() {
         return id;
@@ -103,5 +108,13 @@ public class Neighborhood {
 
     public void setVotes(List<Vote> votes) {
         this.votes = votes;
+    }
+
+    public List<Record> getRecords() {
+        return records;
+    }
+
+    public void setRecords(List<Record> records) {
+        this.records = records;
     }
 }

@@ -30,8 +30,16 @@ public class NeighborService {
         }
     }
 
+    public Integer getNeighborhoodIdByUserId(int userId) {
+        return neighborInterface.findNeighborhoodIdByUserId(userId);
+    }
+
     public Neighbor findById(int id){
         return neighborInterface.findById(id);
+    }
+
+    public Neighbor findByUserId(int id){
+        return neighborInterface.findByUserId(id);
     }
 
     public Neighbor createNeighbor(Neighbor neighbor){

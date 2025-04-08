@@ -26,16 +26,33 @@ public class NeighborController {
         }
     }
 
-    @GetMapping("/{neighborhoodId}")
-    public ResponseEntity<List<Neighbor>> getNeighborsByNeighborhood(@PathVariable int neighborhoodId) {
-        List<Neighbor> neighbors = neighborService.findNeighborsByNeighborhood(neighborhoodId);
+    @GetMapping("/{userId}")
+    public ResponseEntity<Neighbor> getNeighborByUserId(@PathVariable("userId") int userId) {
+        Neighbor neighbor = neighborService.findByUserId(userId);
 
-        if (!neighbors.isEmpty()) {
-            return ResponseEntity.ok().body(neighbors);
+        if (neighbor != null) {
+            return ResponseEntity.ok().body(neighbor);
         } else {
             return ResponseEntity.notFound().build();
         }
     }
+
+    @GetMapping("/neighborhood-id/{userId}")
+    public ResponseEntity<Integer> getNeighborhoodId(@PathVariable int userId) {
+        Integer neighborhoodId = neighborService.getNeighborhoodIdByUserId(userId);
+        return ResponseEntity.ok(neighborhoodId);
+    }
+
+//    @GetMapping("/{id}")
+//    public ResponseEntity<Neighbor> getNeighborById(@PathVariable int id) {
+//        Neighbor neighbor = neighborService.findByUserId(id);
+//
+//        if (neighbor != null) {
+//            return ResponseEntity.ok().body(neighbor);
+//        } else {
+//            return ResponseEntity.notFound().build();
+//        }
+//    }
 
     @PostMapping
     public void createNeighbor(@RequestBody Neighbor neighbor) {
