@@ -46,6 +46,10 @@ public class Neighborhood {
     @JsonManagedReference("neighborhood-records")
     private List<Record> records;
 
+    @OneToMany(mappedBy = "neighborhood")
+    @JsonManagedReference(value = "neighborhood-incidences")
+    private List<Incidence> incidences;
+
     public int getId() {
         return id;
     }
@@ -116,5 +120,13 @@ public class Neighborhood {
 
     public void setRecords(List<Record> records) {
         this.records = records;
+    }
+
+    public List<Incidence> getIncidences() {
+        return incidences;
+    }
+
+    public void setIncidences(List<Incidence> incidences) {
+        this.incidences = incidences;
     }
 }
