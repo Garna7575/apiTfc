@@ -17,7 +17,7 @@ public class IncidenceService {
     }
 
     public List<Incidence> findIncidencesByNeighborhoodId(int neighborhoodId) {
-        return incidencesInterface.findIncidenceByNeighborhoodId(neighborhoodId);
+        return incidencesInterface.findIncidenceByNeighborhoodIdOrderByIdDesc(neighborhoodId);
     }
 
     public Incidence save(Incidence incidence) {

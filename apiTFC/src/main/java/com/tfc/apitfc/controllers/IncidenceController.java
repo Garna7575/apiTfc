@@ -43,7 +43,7 @@ public class IncidenceController {
     }
 
     @PostMapping("/{neighborId}")
-    public ResponseEntity<Incidence> createIncidence(@RequestBody IncidenceDTO incidenceDTO, @PathVariable int neighborId) {
+    public void createIncidence(@RequestBody IncidenceDTO incidenceDTO, @PathVariable int neighborId) {
         Neighbor neighbor = neighborService.findById(neighborId);
 
         Incidence incidence = new Incidence();
@@ -56,8 +56,7 @@ public class IncidenceController {
         incidence.setNeighbor(neighbor);
         incidence.setNeighborhood(neighbor.getNeighborhood());
 
-        Incidence savedIncidence = incidenceService.save(incidence);
+        incidenceService.save(incidence);
 
-        return ResponseEntity.ok(savedIncidence);
     }
 }

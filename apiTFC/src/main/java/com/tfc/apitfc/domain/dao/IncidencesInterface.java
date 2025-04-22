@@ -10,5 +10,5 @@ import java.util.List;
 public interface IncidencesInterface extends CrudRepository<Incidence, Integer> {
     List<Incidence> findAll();
 
-    List<Incidence> findIncidenceByNeighborhoodId(int neighborhoodId);
+    List<Incidence> findIncidenceByNeighborhoodIdOrderByIdDesc(int neighborhoodId);
 }
