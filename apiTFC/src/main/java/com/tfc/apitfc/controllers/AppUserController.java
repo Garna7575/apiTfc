@@ -72,7 +72,7 @@ public class AppUserController {
         newUser.setName(request.getName());
         newUser.setSurname(request.getSurname());
         newUser.setEmail(request.getEmail());
-        newUser.setAge(request.getAge());
+        newUser.setBirthDate(request.getBirthDate());
         newUser.setRole("NEIGHBOR");
         newUser.setTlphNumber(request.getTlphNumber());
 

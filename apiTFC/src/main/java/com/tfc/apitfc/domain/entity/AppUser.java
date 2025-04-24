@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
+import java.util.Date;
+
 @Entity
 public class AppUser {
     @Id
@@ -30,7 +32,7 @@ public class AppUser {
     private String email;
 
     @Column(nullable = false)
-    private int age;
+    private Date birthDate;
 
     @Column(nullable = false)
     private String role;
@@ -99,12 +101,12 @@ public class AppUser {
         this.email = email;
     }
 
-    public int getAge() {
-        return age;
+    public Date getBirthDate() {
+        return birthDate;
     }
 
-    public void setAge(int age) {
-        this.age = age;
+    public void setBirthDate(Date birthDate) {
+        this.birthDate = birthDate;
     }
 
     public String getRole() {

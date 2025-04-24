@@ -30,6 +30,10 @@ public class CommonArea {
     @JsonManagedReference(value = "commonarea-neighbors")
     private List<Neighbor> neighbors;
 
+    @OneToMany(mappedBy = "commonArea")
+    @JsonManagedReference(value = "commonarea-reservations")
+    private List<Reservation> reservations;
+
     public int getId() {
         return id;
     }
@@ -68,5 +72,13 @@ public class CommonArea {
 
     public void setNeighbor(List<Neighbor> neighbor) {
         this.neighbors = neighbor;
+    }
+
+    public List<Reservation> getReservations() {
+        return reservations;
+    }
+
+    public void setReservations(List<Reservation> reservations) {
+        this.reservations = reservations;
     }
 }

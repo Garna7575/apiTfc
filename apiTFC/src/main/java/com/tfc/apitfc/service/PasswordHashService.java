@@ -22,7 +22,4 @@ public class PasswordHashService {
         }
     }
 
-    public boolean verifyPassword(String rawPassword, String storedHash) {
-        return hashPassword(rawPassword).equals(storedHash);
-    }
 }

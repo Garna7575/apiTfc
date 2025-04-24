@@ -1,5 +1,7 @@
 package com.tfc.apitfc.domain.dto;
 
+import java.util.Date;
+
 public class UserRequest {
     private String username;
     private String password;
@@ -7,7 +9,7 @@ public class UserRequest {
     private String surname;
     private String tlphNumber;
     private String email;
-    private int age;
+    private Date birthDate;
     private String house;
     private int neighborhoodId;
 
@@ -59,12 +61,12 @@ public class UserRequest {
         this.email = email;
     }
 
-    public int getAge() {
-        return age;
+    public Date getBirthDate() {
+        return birthDate;
     }
 
-    public void setAge(int age) {
-        this.age = age;
+    public void setBirthDate(Date birthDate) {
+        this.birthDate = birthDate;
     }
 
     public String getHouse() {

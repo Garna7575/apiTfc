@@ -49,7 +49,7 @@ public class RecordController {
 
         if (record.isPresent() && record.get() != null) {
             return ResponseEntity.ok()
-                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + record.get().getName() + ".pdf\"")
+                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + record.get().getTitle() + ".pdf\"")
                     .contentType(MediaType.APPLICATION_PDF)
                     .body(record.get().getFile());
         } else {

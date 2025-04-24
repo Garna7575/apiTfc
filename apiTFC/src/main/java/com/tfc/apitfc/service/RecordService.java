@@ -29,7 +29,7 @@ public class RecordService {
     public Record save(String name, String description, Date date, MultipartFile file) throws IOException {
         Record record = new Record();
 
-        record.setName(name);
+        record.setTitle(name);
         record.setDescription(description);
         record.setDate(date);
         record.setFile(file.getBytes());

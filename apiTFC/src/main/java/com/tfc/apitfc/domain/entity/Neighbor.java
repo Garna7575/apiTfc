@@ -35,6 +35,10 @@ public class Neighbor {
     @JsonManagedReference(value = "neighbor-incidences")
     private List<Incidence> incidences;
 
+    @OneToMany(mappedBy = "neighbor")
+    @JsonManagedReference(value = "neighbor-reservations")
+    private List<Reservation> reservations;
+
     public int getId() {
         return id;
     }
@@ -81,5 +85,26 @@ public class Neighbor {
 
     public void setIncidences(List<Incidence> incidences) {
         this.incidences = incidences;
+    }
+
+    public List<Reservation> getReservations() {
+        return reservations;
+    }
+
+    public void setReservations(List<Reservation> reservations) {
+        this.reservations = reservations;
+    }
+
+    @Override
+    public String toString() {
+        return "Neighbor{" +
+                "id=" + id +
+                ", user=" + user +
+                ", house='" + house + '\'' +
+                ", neighborhood=" + neighborhood +
+                ", commonArea=" + commonArea +
+                ", incidences=" + incidences +
+                ", reservations=" + reservations +
+                '}';
     }
 }
