@@ -2,6 +2,7 @@ package com.tfc.apitfc.service;
 
 import com.tfc.apitfc.domain.dao.AppUserInterface;
 import com.tfc.apitfc.domain.entity.AppUser;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,6 +34,29 @@ public class AppUserService {
     public AppUser addUser(AppUser appUser) {
         appUser.setPassword(passwordHashService.hashPassword(appUser.getPassword()));
         return appUserInterface.save(appUser);
+    }
+
+    @Transactional
+    public void changePassword(int id, String currentPassword, String newPassword) {
+        AppUser user = appUserInterface.findById(id);
+
+        if (!isPasswordValid(newPassword)) {
+            throw new IllegalArgumentException("La nueva contraseña no cumple con los requisitos de seguridad");
+        }
+
+        user.setPassword(passwordHashService.hashPassword(newPassword));
+        appUserInterface.save(user);
+    }
+
+    private boolean isPasswordValid(String password) {
+        return password.length() >= 8 &&
+                password.matches(".*[A-Z].*") &&
+                password.matches(".*[0-9].*") &&
+                password.matches(".*[!@#$%^&*].*");
+    }
+
+    public void updateUser(AppUser appUser) {
+        appUserInterface.save(appUser);
     }
 
     public void deleteUser(AppUser appUser) {

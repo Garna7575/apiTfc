@@ -1,5 +1,6 @@
 package com.tfc.apitfc.controllers;
 
+import com.tfc.apitfc.domain.dto.PasswordChangeRequestDTO;
 import com.tfc.apitfc.domain.dto.UserRequest;
 import com.tfc.apitfc.domain.entity.AppUser;
 import com.tfc.apitfc.domain.entity.Neighbor;
@@ -86,6 +87,26 @@ public class AppUserController {
         Neighbor savedNeighbor = neighborService.createNeighbor(neighbor);
 
         return ResponseEntity.ok(savedNeighbor);
+    }
+
+    @PostMapping("/change-password/{id}")
+    public void changePassword(@RequestBody PasswordChangeRequestDTO request, @PathVariable int id) {
+        appUserService.changePassword(id, request.getCurrentPassword(), request.getNewPassword());
+    }
+
+    @PutMapping("/{id}")
+    public void updateUser(@RequestBody AppUser newUser, @PathVariable int id) {
+        AppUser oldUser = appUserService.getUserById(id);
+
+        oldUser.setId(id);
+        oldUser.setUsername(newUser.getUsername());
+        oldUser.setName(newUser.getName());
+        oldUser.setSurname(newUser.getSurname());
+        oldUser.setEmail(newUser.getEmail());
+        oldUser.setBirthDate(newUser.getBirthDate());
+        oldUser.setTlphNumber(newUser.getTlphNumber());
+
+        appUserService.updateUser(oldUser);
     }
 
     @DeleteMapping("/{id}")

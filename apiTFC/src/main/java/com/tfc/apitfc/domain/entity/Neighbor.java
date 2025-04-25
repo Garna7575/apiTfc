@@ -94,17 +94,4 @@ public class Neighbor {
     public void setReservations(List<Reservation> reservations) {
         this.reservations = reservations;
     }
-
-    @Override
-    public String toString() {
-        return "Neighbor{" +
-                "id=" + id +
-                ", user=" + user +
-                ", house='" + house + '\'' +
-                ", neighborhood=" + neighborhood +
-                ", commonArea=" + commonArea +
-                ", incidences=" + incidences +
-                ", reservations=" + reservations +
-                '}';
-    }
 }
