@@ -31,6 +31,7 @@ public class RecordController {
             return ResponseEntity.noContent().build();
         }
     }
+    
 
     @GetMapping("/{neighborhoodId}")
     public ResponseEntity<List<Record>> findByNeighborhoodId(@PathVariable int neighborhoodId) {
