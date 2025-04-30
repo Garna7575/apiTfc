@@ -1,5 +1,6 @@
 package com.tfc.apitfc.controllers;
 
+import com.tfc.apitfc.domain.dto.ForgotPasswordDTO;
 import com.tfc.apitfc.domain.dto.PasswordChangeRequestDTO;
 import com.tfc.apitfc.domain.dto.UserRequest;
 import com.tfc.apitfc.domain.entity.AppUser;
@@ -9,10 +10,12 @@ import com.tfc.apitfc.service.NeighborService;
 import com.tfc.apitfc.service.NeighborhoodService;
 import com.tfc.apitfc.service.PasswordHashService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
 
 @RestController
 @RequestMapping("/pocket/users")
@@ -92,6 +95,15 @@ public class AppUserController {
     @PostMapping("/change-password/{id}")
     public void changePassword(@RequestBody PasswordChangeRequestDTO request, @PathVariable int id) {
         appUserService.changePassword(id, request.getCurrentPassword(), request.getNewPassword());
+    }
+
+    @PostMapping("/forgot-password")
+    public ResponseEntity<String> forgotPassword(@RequestBody ForgotPasswordDTO request) throws Exception {
+        if (appUserService.forgotPassword(request.getEmail())){
+            return ResponseEntity.ok().body("Email enviado con éxito");
+        } else {
+            return ResponseEntity.noContent().build();
+        }
     }
 
     @PutMapping("/{id}")

@@ -14,6 +14,8 @@ public class AppUserService {
     AppUserInterface appUserInterface;
     @Autowired
     private PasswordHashService passwordHashService;
+    @Autowired
+    private MailService mailService;
 
     public List<AppUser> getAllUsers() {
         return appUserInterface.findAll();
@@ -46,6 +48,18 @@ public class AppUserService {
 
         user.setPassword(passwordHashService.hashPassword(newPassword));
         appUserInterface.save(user);
+    }
+
+    @Transactional
+    public boolean forgotPassword(String email) throws Exception {
+        AppUser user = appUserInterface.findByEmail(email);
+
+        if (user != null) {
+            mailService.sendEmail(email, "Recuperación de correo", "hola :D");
+            return true;
+        } else {
+            return false;
+        }
     }
 
     private boolean isPasswordValid(String password) {
