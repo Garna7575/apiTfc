@@ -44,6 +44,17 @@ public class AppUserController {
         }
     }
 
+    @GetMapping("/recovery/{email}")
+    public ResponseEntity<AppUser> findByEmail(@PathVariable String email) {
+        AppUser user = appUserService.getUserByEmail(email);
+
+        if (user != null) {
+            return ResponseEntity.ok().body(user);
+        } else {
+            return ResponseEntity.noContent().build();
+        }
+    }
+
     @GetMapping("/{username}")
     public ResponseEntity<AppUser> findByUsername(@PathVariable String username) {
         AppUser user = appUserService.getUserByUsername(username);
@@ -99,7 +110,7 @@ public class AppUserController {
 
     @PostMapping("/forgot-password")
     public ResponseEntity<String> forgotPassword(@RequestBody ForgotPasswordDTO request) throws Exception {
-        if (appUserService.forgotPassword(request.getEmail())){
+        if (appUserService.forgotPassword(request.getEmail(), request.getId())){
             return ResponseEntity.ok().body("Email enviado con éxito");
         } else {
             return ResponseEntity.noContent().build();

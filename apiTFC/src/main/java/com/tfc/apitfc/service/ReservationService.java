@@ -64,6 +64,14 @@ public class ReservationService{
         return reservationInterface.findByCommonAreaId(commonAreaId);
     }
 
+    public List<Reservation> getReservationsByDay(LocalDateTime day, int id) {
+        LocalDateTime startOfDay = day.toLocalDate().atStartOfDay();
+        LocalDateTime endOfDay = day.toLocalDate().atTime(23, 59, 59);
+
+        return reservationInterface.findByStartTimeBetweenAndNeighborId(startOfDay, endOfDay, id);
+    }
+
+
     public List<Reservation> getReservationsByNeighbor(Integer neighborId) {
         return reservationInterface.findByNeighborId(neighborId);
     }

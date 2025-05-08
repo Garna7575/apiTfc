@@ -17,6 +17,8 @@ public interface ReservationInterface extends JpaRepository<Reservation, Integer
 
     List<Reservation> findByNeighborId(Integer neighborId);
 
+    List<Reservation> findByStartTimeBetweenAndNeighborId(LocalDateTime start, LocalDateTime end, int neighborId);
+
     @Query("SELECT r FROM Reservation r WHERE r.commonArea.id = :commonAreaId " +
             "AND (r.startTime < :endTime AND r.endTime > :startTime)")
     List<Reservation> findOverlappingReservations(

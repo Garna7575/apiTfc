@@ -25,6 +25,10 @@ public class AppUserService {
         return appUserInterface.findById(id);
     }
 
+    public AppUser getUserByEmail(String email) {
+        return appUserInterface.findByEmail(email);
+    }
+
     public AppUser getUserByUsername(String username) {
         return appUserInterface.findByUsername(username);
     }
@@ -51,11 +55,11 @@ public class AppUserService {
     }
 
     @Transactional
-    public boolean forgotPassword(String email) throws Exception {
+    public boolean forgotPassword(String email, int id) throws Exception {
         AppUser user = appUserInterface.findByEmail(email);
 
         if (user != null) {
-            mailService.sendEmail(email, "Recuperación de correo", "hola :D");
+            mailService.sendPasswordRecoveryEmail(email, id);
             return true;
         } else {
             return false;

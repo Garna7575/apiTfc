@@ -26,11 +26,6 @@ public class Neighbor {
     @JsonBackReference(value = "neighborhood-neighbors")
     private Neighborhood neighborhood;
 
-    @ManyToOne
-    @JoinColumn(name = "reservation_id", nullable = true)
-    @JsonBackReference(value = "commonarea-neighbors")
-    private CommonArea commonArea;
-
     @OneToMany(mappedBy = "neighbor")
     @JsonManagedReference(value = "neighbor-incidences")
     private List<Incidence> incidences;
@@ -69,14 +64,6 @@ public class Neighbor {
 
     public void setNeighborhood(Neighborhood neighborhood) {
         this.neighborhood = neighborhood;
-    }
-
-    public CommonArea getCommonArea() {
-        return commonArea;
-    }
-
-    public void setCommonArea(CommonArea commonArea) {
-        this.commonArea = commonArea;
     }
 
     public List<Incidence> getIncidences() {

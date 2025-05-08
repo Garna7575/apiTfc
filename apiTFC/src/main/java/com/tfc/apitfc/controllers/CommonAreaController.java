@@ -61,23 +61,9 @@ public class CommonAreaController {
         return ResponseEntity.notFound().build();
     }
 
-    @PostMapping
-    public void createCommonArea(@RequestBody CommonArea commonArea) {
-        if (commonArea.getNeighbor() != null) {
-            Neighbor neighbor = neighborService.findById(commonArea.getNeighbor().get(0).getId());
-            neighbor.setCommonArea(commonArea);
-        }
-
-        commonAreaService.save(commonArea);
-    }
-
     @DeleteMapping("/{id}")
     public void deleteCommonArea(@PathVariable int id) {
         CommonArea commonArea = commonAreaService.getCommonAreaById(id);
-
-        if (commonArea.isBooked()) {
-            commonArea.setBooked(false);
-        }
 
         commonAreaService.delete(commonArea);
     }

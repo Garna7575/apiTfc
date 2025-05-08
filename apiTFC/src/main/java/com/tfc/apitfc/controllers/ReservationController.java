@@ -42,6 +42,13 @@ public class ReservationController {
         return ResponseEntity.ok(reservations);
     }
 
+    @GetMapping("/date")
+    public ResponseEntity<List<Reservation>> getReservationsByDate(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime date, @RequestParam("id") int id) {
+        System.out.println(date);
+        List<Reservation> reservations = reservationService.getReservationsByDay(date, id);
+        return ResponseEntity.ok(reservations);
+    }
+
     @GetMapping("/common-area/{commonAreaId}")
     public ResponseEntity<List<Reservation>> getReservationsByCommonArea(@PathVariable Integer commonAreaId) {
         List<Reservation> reservations = reservationService.getReservationsByCommonArea(commonAreaId);

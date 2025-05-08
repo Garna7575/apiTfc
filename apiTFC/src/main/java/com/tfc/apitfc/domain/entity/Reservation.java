@@ -1,6 +1,7 @@
 package com.tfc.apitfc.domain.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -15,7 +16,7 @@ public class Reservation {
 
     @ManyToOne
     @JoinColumn(name = "common_area_id", nullable = false)
-    @JsonBackReference(value = "commonarea-reservations")
+    @JsonIgnoreProperties("reservations")
     private CommonArea commonArea;
 
     @Column(name = "start_time", nullable = false)
