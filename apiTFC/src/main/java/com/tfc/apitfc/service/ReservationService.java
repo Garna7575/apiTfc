@@ -29,10 +29,11 @@ public class ReservationService{
 
     @Transactional
     public Reservation createReservation(ReservationDTO reservationDTO) {
+        System.out.println(reservationDTO.toString());
         CommonArea commonArea = commonAreaService.getCommonAreaById(reservationDTO.getCommonAreaId());
         Neighbor neighbor = neighborService.findById(reservationDTO.getNeighborId());
 
-        System.out.println(neighbor);
+        System.out.println(commonArea);
 
         if (!isCommonAreaAvailable(commonArea.getId(), reservationDTO.getStartTime(), reservationDTO.getEndTime())) {
             throw new IllegalArgumentException("El área común no está disponible en el horario solicitado");
