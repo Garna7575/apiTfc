@@ -34,6 +34,10 @@ public class Neighbor {
     @JsonManagedReference(value = "neighbor-reservations")
     private List<Reservation> reservations;
 
+    @OneToMany(mappedBy = "neighbor")
+    @JsonManagedReference(value = "neighbor-receipts")
+    private List<Receipt> receipts;
+
     public int getId() {
         return id;
     }
