@@ -39,4 +39,12 @@ public class ReceiptController {
             return ResponseEntity.badRequest().build();
         }
     }
+
+    @PutMapping("/payment/{id}")
+    public void payReceipt(@PathVariable int id) {
+        Receipt receipt = receiptService.findById(id);
+
+        receipt.setPaid(true);
+        receiptService.update(receipt);
+    }
 }

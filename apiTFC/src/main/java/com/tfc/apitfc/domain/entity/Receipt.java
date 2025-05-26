@@ -1,9 +1,11 @@
 package com.tfc.apitfc.domain.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 @Table
@@ -21,7 +23,8 @@ public class Receipt {
 
     private boolean paid;
 
-    private LocalDateTime date;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssXXX")
+    private Date date;
 
     @ManyToOne
     @JoinColumn(name = "neighbor_id", nullable = false)
@@ -68,11 +71,11 @@ public class Receipt {
         this.paid = paid;
     }
 
-    public LocalDateTime getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(LocalDateTime date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 

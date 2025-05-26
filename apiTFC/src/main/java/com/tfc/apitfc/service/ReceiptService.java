@@ -20,7 +20,11 @@ public class ReceiptService {
     private NeighborService neighborService;
 
     public List<Receipt> findByNeighborId(int neighborId){
-        return receiptInterface.findByNeighborId(neighborId);
+        return receiptInterface.findByNeighborIdOrderByDateDesc(neighborId);
+    }
+
+    public Receipt findById(int receiptId){
+        return receiptInterface.findById(receiptId);
     }
 
     public Receipt save(ReceiptDTO receiptDTO) {
@@ -34,6 +38,10 @@ public class ReceiptService {
         receipt.setDate(receiptDTO.getDate());
         receipt.setNeighbor(neighbor);
 
+        return receiptInterface.save(receipt);
+    }
+
+    public Receipt update(Receipt receipt) {
         return receiptInterface.save(receipt);
     }
 }

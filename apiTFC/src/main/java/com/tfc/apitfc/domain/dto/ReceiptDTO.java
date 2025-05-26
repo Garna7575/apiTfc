@@ -1,13 +1,18 @@
 package com.tfc.apitfc.domain.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
+import java.util.Date;
 
 public class ReceiptDTO {
     private String title;
     private String description;
     private double value;
     private boolean paid;
-    private LocalDateTime date;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssXXX")
+    private Date date;
     private int neighborId;
 
 
@@ -27,9 +32,9 @@ public class ReceiptDTO {
 
     public void setPaid(boolean paid) { this.paid = paid; }
 
-    public LocalDateTime getDate() { return date; }
+    public Date getDate() { return date; }
 
-    public void setDate(LocalDateTime date) { this.date = date; }
+    public void setDate(Date date) { this.date = date; }
 
     public int getNeighborId() { return neighborId; }
 
