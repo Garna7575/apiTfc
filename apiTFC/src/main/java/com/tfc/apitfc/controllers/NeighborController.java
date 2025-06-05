@@ -1,5 +1,6 @@
 package com.tfc.apitfc.controllers;
 
+import com.tfc.apitfc.domain.dto.NeighborDTO;
 import com.tfc.apitfc.domain.entity.Neighbor;
 import com.tfc.apitfc.service.NeighborService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,16 +44,12 @@ public class NeighborController {
         return ResponseEntity.ok(neighborhoodId);
     }
 
-//    @GetMapping("/{id}")
-//    public ResponseEntity<Neighbor> getNeighborById(@PathVariable int id) {
-//        Neighbor neighbor = neighborService.findByUserId(id);
-//
-//        if (neighbor != null) {
-//            return ResponseEntity.ok().body(neighbor);
-//        } else {
-//            return ResponseEntity.notFound().build();
-//        }
-//    }
+
+    @GetMapping("/by-neighborhood/{neighborhoodId}")
+    public ResponseEntity<List<NeighborDTO>> getNeighborsByNeighborhood(@PathVariable Integer neighborhoodId) {
+        List<NeighborDTO> neighbors = neighborService.getNeighborsByNeighborhood(neighborhoodId);
+        return ResponseEntity.ok().body(neighbors);
+    }
 
     @PostMapping
     public void createNeighbor(@RequestBody Neighbor neighbor) {

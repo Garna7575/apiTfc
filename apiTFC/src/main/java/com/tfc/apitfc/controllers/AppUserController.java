@@ -2,13 +2,12 @@ package com.tfc.apitfc.controllers;
 
 import com.tfc.apitfc.domain.dto.ForgotPasswordDTO;
 import com.tfc.apitfc.domain.dto.PasswordChangeRequestDTO;
+import com.tfc.apitfc.domain.dto.UserAdminRequest;
 import com.tfc.apitfc.domain.dto.UserRequest;
+import com.tfc.apitfc.domain.entity.Admin;
 import com.tfc.apitfc.domain.entity.AppUser;
 import com.tfc.apitfc.domain.entity.Neighbor;
-import com.tfc.apitfc.service.AppUserService;
-import com.tfc.apitfc.service.NeighborService;
-import com.tfc.apitfc.service.NeighborhoodService;
-import com.tfc.apitfc.service.PasswordHashService;
+import com.tfc.apitfc.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.http.ResponseEntity;
@@ -32,6 +31,9 @@ public class AppUserController {
 
     @Autowired
     NeighborService neighborService;
+
+    @Autowired
+    AdminService adminService;
 
     @GetMapping
     public ResponseEntity<List<AppUser>> findAll() {
@@ -78,7 +80,7 @@ public class AppUserController {
         }
     }
 
-    @PostMapping
+    @PostMapping("neighbor")
     public ResponseEntity<Neighbor> createNeighbor(@RequestBody UserRequest request) {
         AppUser newUser = new AppUser();
 
@@ -101,6 +103,27 @@ public class AppUserController {
         Neighbor savedNeighbor = neighborService.createNeighbor(neighbor);
 
         return ResponseEntity.ok(savedNeighbor);
+    }
+
+    @PostMapping("admin")
+    public void createAdmin(@RequestBody UserAdminRequest request) {
+        AppUser newUser = new AppUser();
+
+        newUser.setUsername(request.getUsername());
+        newUser.setPassword(request.getPassword());
+        newUser.setName(request.getName());
+        newUser.setSurname(request.getSurname());
+        newUser.setEmail(request.getEmail());
+        newUser.setBirthDate(request.getBirthDate());
+        newUser.setRole("ADMIN");
+        newUser.setTlphNumber(request.getTlphNumber());
+
+        AppUser savedUser = appUserService.addUser(newUser);
+
+        Admin admin = new Admin();
+        admin.setUser(savedUser);
+        admin.setRegistrationNumber(request.getRegistrationNumber());
+        adminService.addAdmin(admin);
     }
 
     @PostMapping("/change-password/{id}")

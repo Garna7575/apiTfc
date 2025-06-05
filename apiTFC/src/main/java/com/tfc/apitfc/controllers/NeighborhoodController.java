@@ -11,6 +11,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 import java.util.Map;
@@ -47,6 +48,24 @@ public class NeighborhoodController {
         if (neighborhood != null) {
             NeighborhoodDTO dto = NeighborhoodMapper.toDTO(neighborhood);
             return ResponseEntity.ok().body(dto);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @GetMapping("admin/{id}")
+    @Transactional
+    public ResponseEntity<List<NeighborhoodDTO>> getNeighborhoodByAdminId(@PathVariable int id) {
+        List<Neighborhood> neighborhoods = neighborhoodService.getNeighborhoodByAdminId(id);
+
+        if (neighborhoods != null && !neighborhoods.isEmpty()) {
+            List<NeighborhoodDTO> neighborhoodDTOS = new ArrayList<>();
+            for (Neighborhood neighborhood : neighborhoods) {
+                NeighborhoodDTO dto = NeighborhoodMapper.toDTO(neighborhood);
+                neighborhoodDTOS.add(dto);
+            }
+
+            return ResponseEntity.ok().body(neighborhoodDTOS);
         } else {
             return ResponseEntity.notFound().build();
         }

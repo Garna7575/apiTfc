@@ -23,6 +23,10 @@ public class NeighborhoodService {
         return neighborhoodInterface.findById(id);
     }
 
+    public List<Neighborhood> getNeighborhoodByAdminId(int adminId) {
+        return neighborhoodInterface.findByAdminId(adminId);
+    }
+
     public Admin getAdminByNeighborhood(int id) {
         return neighborhoodInterface.findAdminByNeighborhoodId(id);
     }

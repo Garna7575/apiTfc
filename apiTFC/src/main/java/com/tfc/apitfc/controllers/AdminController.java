@@ -36,6 +36,17 @@ public class AdminController {
         }
     }
 
+    @GetMapping("userId/{id}")
+    public ResponseEntity<Admin> getAdminByUserId(@PathVariable int id) {
+        Admin admin = adminService.getAdminByUserId(id);
+
+        if (admin != null) {
+            return ResponseEntity.ok().body(admin);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
     @PostMapping
     public void createAdmin(@RequestBody Admin admin) {
         if (admin != null) {

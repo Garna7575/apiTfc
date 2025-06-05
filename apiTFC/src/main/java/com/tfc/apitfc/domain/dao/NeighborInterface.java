@@ -15,6 +15,8 @@ public interface NeighborInterface extends CrudRepository<Neighbor, Integer> {
 
     List<Neighbor> findByNeighborhood(Neighborhood neighborhood);
 
+    List<Neighbor> findByNeighborhoodId(Integer neighborhoodId);
+
     @Query("SELECT n.neighborhood.id FROM Neighbor n WHERE n.user.id = :userId")
     Integer findNeighborhoodIdByUserId(@Param("userId") int userId);
 

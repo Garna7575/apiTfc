@@ -16,7 +16,7 @@ public interface NeighborhoodInterface extends CrudRepository<Neighborhood, Inte
 
     Neighborhood findById(int id);
 
-    Neighborhood findByName(String name);
+    List<Neighborhood> findByAdminId(int adminId);
 
     @Query("SELECT n.admin FROM Neighborhood n WHERE n.id = :neighborhoodId")
     Admin findAdminByNeighborhoodId(@Param("neighborhoodId") int neighborhoodId);
