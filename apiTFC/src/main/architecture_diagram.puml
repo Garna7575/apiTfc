@@ -1,0 +1,85 @@
+@startuml
+skinparam packageStyle rectangle
+skinparam classAttributeIconSize 0
+
+package "Interfaces" {
+  interface AdminInterface
+  interface UserInterface
+  interface IncidentInterface
+  interface NeighborhoodInterface
+  interface VoteInterface
+  interface RecordInterface
+  interface ReservationInterface
+}
+
+package "DTOs" {
+  class AdminDTO
+  class UserDTO
+  class IncidentDTO
+  class NeighborhoodDTO
+  class VoteDTO
+  class RecordDTO
+  class ReservationDTO
+  class CommonAreaDTO
+}
+
+package "Entidades" {
+  class Admin
+  class User
+  class Incident
+  class Neighborhood
+  class Vote
+  class Record
+  class Reservation
+  class CommonArea
+}
+
+package "Servicios" {
+  class AdminService
+  class UserService
+  class IncidentService
+  class NeighborhoodService
+  class VoteService
+  class RecordService
+  class ReservationService
+  class CommonAreaService
+}
+
+package "Controladores" {
+  class AdminController
+  class UserController
+  class IncidentController
+  class NeighborhoodController
+  class VoteController
+  class RecordController
+  class ReservationController
+  class CommonAreaController
+}
+
+package "App" {
+  class TfcApplication
+}
+
+' Relaciones típicas
+AdminController --> AdminService
+UserController --> UserService
+IncidentController --> IncidentService
+NeighborhoodController --> NeighborhoodService
+VoteController --> VoteService
+RecordController --> RecordService
+ReservationController --> ReservationService
+CommonAreaController --> CommonAreaService
+
+AdminService --> AdminInterface
+UserService --> UserInterface
+IncidentService --> IncidentInterface
+NeighborhoodService --> NeighborhoodInterface
+VoteService --> VoteInterface
+RecordService --> RecordInterface
+ReservationService --> ReservationInterface
+CommonAreaService --> CommonAreaDTO
+
+IncidentService --> IncidentDTO
+IncidentDTO --> Incident
+
+@enduml

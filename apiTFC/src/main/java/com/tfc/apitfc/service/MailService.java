@@ -1,8 +1,10 @@
 package com.tfc.apitfc.service;
 
+import com.tfc.apitfc.domain.entity.Receipt;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
+import java.util.List;
 import java.util.Properties;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
@@ -28,33 +30,6 @@ public class MailService {
                 return new PasswordAuthentication("garna75@gmx.es", "paquito el chocolatero");
             }
         });
-    }
-
-    public String sendEmail(String to, String asunto, String texto, int id) throws Exception {
-        try {
-            Session sesion = this.getSesionSmtp();
-            Message mensaje = new MimeMessage(sesion);
-            mensaje.setFrom(new InternetAddress("garna75@gmx.es"));
-            mensaje.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
-            mensaje.setSubject(asunto);
-
-            MimeBodyPart cuerpoTexto = new MimeBodyPart();
-            cuerpoTexto.setText(texto);
-
-            Multipart multiparte = new MimeMultipart();
-            multiparte.addBodyPart(cuerpoTexto);
-
-            mensaje.setContent(multiparte);
-            Transport.send(mensaje);
-
-            return "Email enviado con éxito";
-        } catch (AuthenticationFailedException e) {
-            return "Error de autenticación: Verifica tu usuario y contraseña.";
-        } catch (MessagingException e) {
-            return "Error en el envío del correo";
-        } catch (Exception e) {
-            return "Error inesperado";
-        }
     }
 
     public String sendPasswordRecoveryEmail(String to, int userId) throws Exception {
@@ -83,6 +58,46 @@ public class MailService {
             multipart.addBodyPart(htmlPart);
 
             message.setContent(multipart);
+            Transport.send(message);
+
+            return "Correo enviado correctamente";
+        } catch (MessagingException e) {
+            return "Error al enviar el correo: " + e.getMessage();
+        }
+    }
+
+    public String sendPendingReceiptsEmail(String to, String customerName, List<Receipt> uncollectedReceipts) throws Exception {
+        try {
+            Session session = this.getSesionSmtp();
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress("garna75@gmx.es"));
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
+            message.setSubject("Aviso de recibos pendientes");
+
+            StringBuilder receiptList = new StringBuilder("<ul>");
+            for (Receipt receipt : uncollectedReceipts) {
+                receiptList.append("<li>").append(receipt.getTitle()).append("</li>");
+            }
+            receiptList.append("</ul>");
+
+            String htmlContent = "<div style='font-family: Arial, sans-serif; max-width: 600px; margin: 20px auto;'>" +
+                    "<h2 style='color: #2c3e50;'>Aviso de recibos pendientes</h2>" +
+                    "<p>Estimado/a " + customerName + ",</p>" +
+                    "<p>Te informamos de que tienes los siguientes recibos pendientes de cobrar:</p>" +
+                    receiptList.toString() +
+                    "<p>Por favor, realiza los pagos correspondientes cuanto antes o contacta con el departamento de atención al cliente.</p>" +
+                    "<p style='color: #666;'>Si ya has realizado el pago, por favor ignora este mensaje.</p>" +
+                    "<p>Gracias por tu atención.</p>" +
+                    "</div>";
+
+            MimeBodyPart htmlPart = new MimeBodyPart();
+            htmlPart.setContent(htmlContent, "text/html; charset=utf-8");
+
+            Multipart multipart = new MimeMultipart();
+            multipart.addBodyPart(htmlPart);
+
+            message.setContent(multipart);
+
             Transport.send(message);
 
             return "Correo enviado correctamente";

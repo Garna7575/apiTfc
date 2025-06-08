@@ -13,7 +13,7 @@ public class Neighbor {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "user_id", nullable = false, unique = true)
     @JsonBackReference(value = "neighbor-user")
     private AppUser user;
@@ -26,15 +26,15 @@ public class Neighbor {
     @JsonBackReference(value = "neighborhood-neighbors")
     private Neighborhood neighborhood;
 
-    @OneToMany(mappedBy = "neighbor")
+    @OneToMany(mappedBy = "neighbor", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference(value = "neighbor-incidences")
     private List<Incidence> incidences;
 
-    @OneToMany(mappedBy = "neighbor")
+    @OneToMany(mappedBy = "neighbor", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference(value = "neighbor-reservations")
     private List<Reservation> reservations;
 
-    @OneToMany(mappedBy = "neighbor")
+    @OneToMany(mappedBy = "neighbor", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference(value = "neighbor-receipts")
     private List<Receipt> receipts;
 
@@ -84,5 +84,13 @@ public class Neighbor {
 
     public void setReservations(List<Reservation> reservations) {
         this.reservations = reservations;
+    }
+
+    public List<Receipt> getReceipts() {
+        return receipts;
+    }
+
+    public void setReceipts(List<Receipt> receipts) {
+        this.receipts = receipts;
     }
 }

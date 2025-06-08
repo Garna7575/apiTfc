@@ -1,7 +1,9 @@
 package com.tfc.apitfc.controllers;
 
+import com.tfc.apitfc.domain.dto.PaymentEmailDTO;
 import com.tfc.apitfc.domain.dto.ReceiptDTO;
 import com.tfc.apitfc.domain.entity.Receipt;
+import com.tfc.apitfc.service.MailService;
 import com.tfc.apitfc.service.ReceiptService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,6 +20,8 @@ public class ReceiptController {
     @Autowired
     ReceiptService receiptService;
 
+    @Autowired
+    MailService mailService;
 
     @GetMapping("/{id}")
     public ResponseEntity<List<Receipt>> getReceiptsByNeighborId(@PathVariable int id) {
@@ -30,6 +34,13 @@ public class ReceiptController {
         }
     }
 
+    @GetMapping("/pending-receipts/{id}")
+    public ResponseEntity<List<Receipt>> getPendingReceipts(@PathVariable int id) {
+        List<Receipt> receipts = receiptService.findByNeighborId(id);
+        receipts.removeIf(Receipt::isPaid);
+        return ResponseEntity.ok().body(receipts);
+    }
+
     @PostMapping
     public ResponseEntity<Receipt> createReceipt(@RequestBody ReceiptDTO receiptDTO) {
         try {
@@ -38,6 +49,11 @@ public class ReceiptController {
         } catch (RuntimeException e) {
             return ResponseEntity.badRequest().build();
         }
+    }
+
+    @PostMapping("/email")
+    public void sendUnpayedReceiptsEmail(@RequestBody PaymentEmailDTO dto) throws Exception {
+        mailService.sendPendingReceiptsEmail(dto.getEmail(), dto.getName(), dto.getReceipts());
     }
 
     @PutMapping("/payment/{id}")

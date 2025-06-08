@@ -163,4 +163,13 @@ public class AppUserController {
             appUserService.deleteUser(user);
         }
     }
+
+    @DeleteMapping("/neighbor/{id}")
+    public void deleteNeighbor(@PathVariable int id) {
+        Neighbor neighbor = neighborService.findById(id);
+        System.out.println(neighbor);
+        if (neighbor != null) {
+            neighborService.deleteNeighbor(neighbor.getId());
+        }
+    }
 }
