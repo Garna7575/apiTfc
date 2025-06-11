@@ -3,6 +3,7 @@ com\tfc\apitfc\domain\entity\CommonArea.class
 com\tfc\apitfc\controllers\ReservationController.class
 com\tfc\apitfc\controllers\CommonAreaController.class
 com\tfc\apitfc\domain\entity\Neighborhood.class
+com\tfc\apitfc\service\ReceiptService.class
 com\tfc\apitfc\domain\dto\UserRequest.class
 com\tfc\apitfc\domain\dao\ReservationInterface.class
 com\tfc\apitfc\domain\dto\ReservationDTO.class
@@ -14,6 +15,7 @@ com\tfc\apitfc\domain\dto\RecordDTO.class
 com\tfc\apitfc\domain\dao\NeighborInterface.class
 com\tfc\apitfc\service\NeighborhoodService.class
 com\tfc\apitfc\domain\entity\NeighborVote.class
+com\tfc\apitfc\domain\dto\ReceiptDTO.class
 com\tfc\apitfc\domain\dao\NeighborVoteInterface.class
 com\tfc\apitfc\service\IncidenceService.class
 com\tfc\apitfc\domain\dto\PasswordChangeRequestDTO.class
@@ -21,9 +23,13 @@ com\tfc\apitfc\service\MailService$1.class
 com\tfc\apitfc\domain\entity\AppUser.class
 com\tfc\apitfc\controllers\NeighborController.class
 com\tfc\apitfc\service\RecordService.class
+com\tfc\apitfc\domain\dao\ReceiptInterface.class
 com\tfc\apitfc\ApiTfcApplication.class
+com\tfc\apitfc\domain\entity\Receipt.class
 com\tfc\apitfc\controllers\IncidenceController.class
 com\tfc\apitfc\controllers\VoteController.class
+com\tfc\apitfc\domain\dto\UserDTO.class
+com\tfc\apitfc\controllers\ReceiptController.class
 com\tfc\apitfc\domain\dao\AppUserInterface.class
 com\tfc\apitfc\domain\dao\IncidencesInterface.class
 com\tfc\apitfc\domain\dao\AdminInterface.class
@@ -35,8 +41,10 @@ com\tfc\apitfc\service\AppUserService.class
 com\tfc\apitfc\domain\dao\CommonAreaInterface.class
 com\tfc\apitfc\domain\dao\VoteInterface.class
 com\tfc\apitfc\domain\entity\Admin.class
+com\tfc\apitfc\domain\dto\UserAdminRequest.class
 com\tfc\apitfc\domain\entity\Reservation.class
 com\tfc\apitfc\service\ReservationService.class
+com\tfc\apitfc\domain\dto\NeighborDTO.class
 com\tfc\apitfc\domain\entity\Record.class
 com\tfc\apitfc\service\AdminService.class
 com\tfc\apitfc\controllers\AdminController.class
@@ -48,4 +56,5 @@ com\tfc\apitfc\domain\entity\Incidence.class
 com\tfc\apitfc\service\NeighborService.class
 com\tfc\apitfc\domain\dao\NeighborhoodInterface.class
 com\tfc\apitfc\domain\dto\NeighborhoodDTO.class
+com\tfc\apitfc\domain\dto\PaymentEmailDTO.class
 com\tfc\apitfc\service\VoteService.class

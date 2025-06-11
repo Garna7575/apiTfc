@@ -6,6 +6,7 @@ C:\Users\Alvaro\Desktop\b\apiTfc\apiTFC\src\main\java\com\tfc\apitfc\controllers
 C:\Users\Alvaro\Desktop\b\apiTfc\apiTFC\src\main\java\com\tfc\apitfc\controllers\NeighborController.java
 C:\Users\Alvaro\Desktop\b\apiTfc\apiTFC\src\main\java\com\tfc\apitfc\controllers\NeighborhoodController.java
 C:\Users\Alvaro\Desktop\b\apiTfc\apiTFC\src\main\java\com\tfc\apitfc\controllers\NeighborVoteController.java
+C:\Users\Alvaro\Desktop\b\apiTfc\apiTFC\src\main\java\com\tfc\apitfc\controllers\ReceiptController.java
 C:\Users\Alvaro\Desktop\b\apiTfc\apiTFC\src\main\java\com\tfc\apitfc\controllers\RecordController.java
 C:\Users\Alvaro\Desktop\b\apiTfc\apiTFC\src\main\java\com\tfc\apitfc\controllers\ReservationController.java
 C:\Users\Alvaro\Desktop\b\apiTfc\apiTFC\src\main\java\com\tfc\apitfc\controllers\VoteController.java
@@ -16,15 +17,21 @@ C:\Users\Alvaro\Desktop\b\apiTfc\apiTFC\src\main\java\com\tfc\apitfc\domain\dao\
 C:\Users\Alvaro\Desktop\b\apiTfc\apiTFC\src\main\java\com\tfc\apitfc\domain\dao\NeighborhoodInterface.java
 C:\Users\Alvaro\Desktop\b\apiTfc\apiTFC\src\main\java\com\tfc\apitfc\domain\dao\NeighborInterface.java
 C:\Users\Alvaro\Desktop\b\apiTfc\apiTFC\src\main\java\com\tfc\apitfc\domain\dao\NeighborVoteInterface.java
+C:\Users\Alvaro\Desktop\b\apiTfc\apiTFC\src\main\java\com\tfc\apitfc\domain\dao\ReceiptInterface.java
 C:\Users\Alvaro\Desktop\b\apiTfc\apiTFC\src\main\java\com\tfc\apitfc\domain\dao\RecordInterface.java
 C:\Users\Alvaro\Desktop\b\apiTfc\apiTFC\src\main\java\com\tfc\apitfc\domain\dao\ReservationInterface.java
 C:\Users\Alvaro\Desktop\b\apiTfc\apiTFC\src\main\java\com\tfc\apitfc\domain\dao\VoteInterface.java
 C:\Users\Alvaro\Desktop\b\apiTfc\apiTFC\src\main\java\com\tfc\apitfc\domain\dto\ForgotPasswordDTO.java
 C:\Users\Alvaro\Desktop\b\apiTfc\apiTFC\src\main\java\com\tfc\apitfc\domain\dto\IncidenceDTO.java
+C:\Users\Alvaro\Desktop\b\apiTfc\apiTFC\src\main\java\com\tfc\apitfc\domain\dto\NeighborDTO.java
 C:\Users\Alvaro\Desktop\b\apiTfc\apiTFC\src\main\java\com\tfc\apitfc\domain\dto\NeighborhoodDTO.java
 C:\Users\Alvaro\Desktop\b\apiTfc\apiTFC\src\main\java\com\tfc\apitfc\domain\dto\PasswordChangeRequestDTO.java
+C:\Users\Alvaro\Desktop\b\apiTfc\apiTFC\src\main\java\com\tfc\apitfc\domain\dto\PaymentEmailDTO.java
+C:\Users\Alvaro\Desktop\b\apiTfc\apiTFC\src\main\java\com\tfc\apitfc\domain\dto\ReceiptDTO.java
 C:\Users\Alvaro\Desktop\b\apiTfc\apiTFC\src\main\java\com\tfc\apitfc\domain\dto\RecordDTO.java
 C:\Users\Alvaro\Desktop\b\apiTfc\apiTFC\src\main\java\com\tfc\apitfc\domain\dto\ReservationDTO.java
+C:\Users\Alvaro\Desktop\b\apiTfc\apiTFC\src\main\java\com\tfc\apitfc\domain\dto\UserAdminRequest.java
+C:\Users\Alvaro\Desktop\b\apiTfc\apiTFC\src\main\java\com\tfc\apitfc\domain\dto\UserDTO.java
 C:\Users\Alvaro\Desktop\b\apiTfc\apiTFC\src\main\java\com\tfc\apitfc\domain\dto\UserRequest.java
 C:\Users\Alvaro\Desktop\b\apiTfc\apiTFC\src\main\java\com\tfc\apitfc\domain\entity\Admin.java
 C:\Users\Alvaro\Desktop\b\apiTfc\apiTFC\src\main\java\com\tfc\apitfc\domain\entity\AppUser.java
@@ -33,6 +40,7 @@ C:\Users\Alvaro\Desktop\b\apiTfc\apiTFC\src\main\java\com\tfc\apitfc\domain\enti
 C:\Users\Alvaro\Desktop\b\apiTfc\apiTFC\src\main\java\com\tfc\apitfc\domain\entity\Neighbor.java
 C:\Users\Alvaro\Desktop\b\apiTfc\apiTFC\src\main\java\com\tfc\apitfc\domain\entity\Neighborhood.java
 C:\Users\Alvaro\Desktop\b\apiTfc\apiTFC\src\main\java\com\tfc\apitfc\domain\entity\NeighborVote.java
+C:\Users\Alvaro\Desktop\b\apiTfc\apiTFC\src\main\java\com\tfc\apitfc\domain\entity\Receipt.java
 C:\Users\Alvaro\Desktop\b\apiTfc\apiTFC\src\main\java\com\tfc\apitfc\domain\entity\Record.java
 C:\Users\Alvaro\Desktop\b\apiTfc\apiTFC\src\main\java\com\tfc\apitfc\domain\entity\Reservation.java
 C:\Users\Alvaro\Desktop\b\apiTfc\apiTFC\src\main\java\com\tfc\apitfc\domain\entity\Vote.java
@@ -45,6 +53,7 @@ C:\Users\Alvaro\Desktop\b\apiTfc\apiTFC\src\main\java\com\tfc\apitfc\service\Mai
 C:\Users\Alvaro\Desktop\b\apiTfc\apiTFC\src\main\java\com\tfc\apitfc\service\NeighborhoodService.java
 C:\Users\Alvaro\Desktop\b\apiTfc\apiTFC\src\main\java\com\tfc\apitfc\service\NeighborService.java
 C:\Users\Alvaro\Desktop\b\apiTfc\apiTFC\src\main\java\com\tfc\apitfc\service\PasswordHashService.java
+C:\Users\Alvaro\Desktop\b\apiTfc\apiTFC\src\main\java\com\tfc\apitfc\service\ReceiptService.java
 C:\Users\Alvaro\Desktop\b\apiTfc\apiTFC\src\main\java\com\tfc\apitfc\service\RecordService.java
 C:\Users\Alvaro\Desktop\b\apiTfc\apiTFC\src\main\java\com\tfc\apitfc\service\ReservationService.java
 C:\Users\Alvaro\Desktop\b\apiTfc\apiTFC\src\main\java\com\tfc\apitfc\service\VoteService.java

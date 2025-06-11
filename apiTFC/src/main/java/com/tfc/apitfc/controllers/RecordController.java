@@ -59,9 +59,9 @@ public class RecordController {
     }
 
     @PostMapping("/upload")
-    public ResponseEntity<String> uploadRecord(@RequestParam("name") String name, @RequestParam("description") String description, @RequestParam("date") Date date, @RequestParam("file") MultipartFile file) {
+    public ResponseEntity<String> uploadRecord(@RequestParam("name") String name, @RequestParam("description") String description, @RequestParam("date") Date date, @RequestParam("file") MultipartFile file, @RequestParam int neighborhoodId) {
         try {
-            Record savedRecord = recordService.save(name, description, date, file);
+            Record savedRecord = recordService.save(name, description, date, file, neighborhoodId);
             return ResponseEntity.ok("Archivo subido con éxito. ID: " + savedRecord.getId());
         } catch (IOException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al guardar el archivo.");

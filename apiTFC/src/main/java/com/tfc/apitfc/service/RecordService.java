@@ -1,5 +1,6 @@
 package com.tfc.apitfc.service;
 
+import com.tfc.apitfc.domain.dao.NeighborhoodInterface;
 import com.tfc.apitfc.domain.entity.Record;
 import com.tfc.apitfc.domain.dao.RecordInterface;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,9 @@ public class RecordService {
     @Autowired
     RecordInterface recordInterface;
 
+    @Autowired
+    NeighborhoodInterface neighborhoodInterface;
+
     public List<Record> findAll() {
         return recordInterface.findAll();
     }
@@ -26,13 +30,14 @@ public class RecordService {
     }
 
 
-    public Record save(String name, String description, Date date, MultipartFile file) throws IOException {
+    public Record save(String name, String description, Date date, MultipartFile file, int neighborhoodId) throws IOException {
         Record record = new Record();
 
         record.setTitle(name);
         record.setDescription(description);
         record.setDate(date);
         record.setFile(file.getBytes());
+        record.setNeighborhood(neighborhoodInterface.findById(neighborhoodId));
         return recordInterface.save(record);
     }
 

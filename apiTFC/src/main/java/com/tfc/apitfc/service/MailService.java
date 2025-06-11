@@ -105,4 +105,36 @@ public class MailService {
             return "Error al enviar el correo: " + e.getMessage();
         }
     }
+
+    public String sendAccountTerminationEmail(String to, String customerName) throws Exception {
+        try {
+            Session session = this.getSesionSmtp();
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress("garna75@gmx.es"));
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
+            message.setSubject("Notificación de baja de la aplicación");
+
+            String htmlContent = "<div style='font-family: Arial, sans-serif; max-width: 600px; margin: 20px auto;'>" +
+                    "<h2 style='color: #2c3e50;'>Notificación de baja</h2>" +
+                    "<p>Estimado/a " + customerName + ",</p>" +
+                    "<p>Te informamos que has sido dado/a de baja de la aplicación por el administrador.</p>" +
+                    "<p>Si tienes algún inconveniente o preguntas relacionadas con esta acción, no dudes en contactarlo a través de su email o teléfono:</p>" +
+                    "<p>Gracias por tu atención.</p>" +
+                    "</div>";
+
+            MimeBodyPart htmlPart = new MimeBodyPart();
+            htmlPart.setContent(htmlContent, "text/html; charset=utf-8");
+
+            Multipart multipart = new MimeMultipart();
+            multipart.addBodyPart(htmlPart);
+
+            message.setContent(multipart);
+
+            Transport.send(message);
+
+            return "Correo enviado correctamente";
+        } catch (MessagingException e) {
+            return "Error al enviar el correo: " + e.getMessage();
+        }
+    }
 }

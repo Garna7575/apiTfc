@@ -35,6 +35,9 @@ public class AppUserController {
     @Autowired
     AdminService adminService;
 
+    @Autowired
+    MailService mailService;
+
     @GetMapping
     public ResponseEntity<List<AppUser>> findAll() {
         List<AppUser> users = appUserService.getAllUsers();
@@ -165,10 +168,11 @@ public class AppUserController {
     }
 
     @DeleteMapping("/neighbor/{id}")
-    public void deleteNeighbor(@PathVariable int id) {
+    public void deleteNeighbor(@PathVariable int id) throws Exception {
         Neighbor neighbor = neighborService.findById(id);
-        System.out.println(neighbor);
+
         if (neighbor != null) {
+            mailService.sendAccountTerminationEmail(neighbor.getUser().getEmail(), neighbor.getUser().getName());
             neighborService.deleteNeighbor(neighbor.getId());
         }
     }
