@@ -33,7 +33,7 @@ public class NeighborhoodMapper {
     public static RecordDTO toDTO(Record record) {
         RecordDTO dto = new RecordDTO();
         dto.setId(record.getId());
-        dto.setName(record.getTitle());
+        dto.setTitle(record.getTitle());
         dto.setDescription(record.getDescription());
         dto.setDate(record.getDate());
 

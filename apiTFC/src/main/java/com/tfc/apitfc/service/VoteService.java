@@ -52,4 +52,12 @@ public class VoteService {
 
         return "Voto registrado";
     }
+
+    public void saveVote(Vote vote){
+        voteInterface.save(vote);
+    }
+
+    public void deleteVote(int id){
+        voteInterface.deleteById(id);
+    }
 }

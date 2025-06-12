@@ -17,7 +17,7 @@ public class Vote {
 
     private String description;
 
-    @OneToMany(mappedBy = "vote")
+    @OneToMany(mappedBy = "vote", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference("vote-neighbors")
     private List<NeighborVote> neighborVotes;
 
@@ -64,5 +64,16 @@ public class Vote {
 
     public void setNeighborVotes(List<NeighborVote> neighborVotes) {
         this.neighborVotes = neighborVotes;
+    }
+
+    @Override
+    public String toString() {
+        return "Vote{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", neighborVotes=" + neighborVotes +
+                ", neighborhood=" + neighborhood +
+                '}';
     }
 }

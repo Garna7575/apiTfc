@@ -137,4 +137,39 @@ public class MailService {
             return "Error al enviar el correo: " + e.getMessage();
         }
     }
+
+    public String sendVotingResultEmail(String to, String name, String votingTitle, boolean isApproved) throws Exception {
+        try {
+            Session session = this.getSesionSmtp();
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress("garna75@gmx.es"));
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
+            message.setSubject("Resultado de la Votación: " + votingTitle);
+
+            String votingResult = isApproved ? "a favor" : "en contra";
+
+            String htmlContent = "<div style='font-family: Arial, sans-serif; max-width: 600px; margin: 20px auto;'>" +
+                    "<h2 style='color: #2c3e50;'>Resultado de la votación</h2>" +
+                    "<p>Estimado/a " + name + ",</p>" +
+                    "<p>Te informamos que se ha realizado una votación sobre el tema: <strong>" + votingTitle + "</strong>.</p>" +
+                    "<p>El resultado de la votación ha sido: <strong>" + votingResult + "</strong>.</p>" +
+                    "<p>Gracias por participar en el proceso de votación.</p>" +
+                    "<p>Si tienes alguna duda o consulta, no dudes en contactarnos.</p>" +
+                    "</div>";
+
+            MimeBodyPart htmlPart = new MimeBodyPart();
+            htmlPart.setContent(htmlContent, "text/html; charset=utf-8");
+
+            Multipart multipart = new MimeMultipart();
+            multipart.addBodyPart(htmlPart);
+
+            message.setContent(multipart);
+
+            Transport.send(message);
+
+            return "Correo enviado correctamente";
+        } catch (MessagingException e) {
+            return "Error al enviar el correo: " + e.getMessage();
+        }
+    }
 }

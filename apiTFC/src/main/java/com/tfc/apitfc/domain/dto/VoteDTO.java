@@ -1,13 +1,14 @@
 package com.tfc.apitfc.domain.dto;
 
-import java.util.Date;
 
-public class RecordDTO {
+public class VoteDTO {
     private int id;
+
     private String title;
+
     private String description;
-    private Date date;
-    private String fileBase64;
+
+    private int neighborhoodId;
 
     public int getId() {
         return id;
@@ -33,19 +34,11 @@ public class RecordDTO {
         this.description = description;
     }
 
-    public Date getDate() {
-        return date;
+    public int getNeighborhoodId() {
+        return neighborhoodId;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-    public String getFileBase64() {
-        return fileBase64;
-    }
-
-    public void setFileBase64(String fileBase64) {
-        this.fileBase64 = fileBase64;
+    public void setNeighborhoodId(int neighborhoodId) {
+        this.neighborhoodId = neighborhoodId;
     }
 }

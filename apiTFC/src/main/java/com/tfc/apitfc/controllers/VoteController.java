@@ -1,9 +1,12 @@
 package com.tfc.apitfc.controllers;
 
+import com.tfc.apitfc.domain.dao.VoteInterface;
+import com.tfc.apitfc.domain.dto.VoteDTO;
 import com.tfc.apitfc.domain.entity.Neighbor;
 import com.tfc.apitfc.domain.entity.NeighborVote;
 import com.tfc.apitfc.domain.entity.Vote;
 import com.tfc.apitfc.service.NeighborService;
+import com.tfc.apitfc.service.NeighborhoodService;
 import com.tfc.apitfc.service.VoteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +24,9 @@ public class VoteController {
 
     @Autowired
     private NeighborService neighborService;
+
+    @Autowired
+    private NeighborhoodService neighborhoodService;
 
     @GetMapping("/{neighborhoodId}")
     public ResponseEntity<List<Vote>> getVotesByNeighborhoodId(@PathVariable int neighborhoodId) {
@@ -48,5 +54,14 @@ public class VoteController {
         String answer = voteService.castVote(neighbor, vote, inFavor);
 
         return ResponseEntity.ok().body(answer);
+    }
+
+    @PostMapping("/create")
+    public void createVote(@RequestBody VoteDTO voteDTO) {
+        Vote vote = new Vote();
+        vote.setTitle(voteDTO.getTitle());
+        vote.setDescription(voteDTO.getDescription());
+        vote.setNeighborhood(neighborhoodService.getNeighborhoodById(voteDTO.getNeighborhoodId()));
+        voteService.saveVote(vote);
     }
 }
