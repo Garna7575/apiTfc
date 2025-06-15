@@ -1,12 +1,11 @@
 package com.tfc.apitfc.controllers;
 
+import com.tfc.apitfc.domain.dto.CommonAreaDTO;
 import com.tfc.apitfc.domain.entity.CommonArea;
-import com.tfc.apitfc.domain.entity.Neighbor;
 import com.tfc.apitfc.service.CommonAreaService;
 import com.tfc.apitfc.service.NeighborService;
-import org.apache.el.stream.Optional;
+import com.tfc.apitfc.service.NeighborhoodService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,6 +21,9 @@ public class CommonAreaController {
 
     @Autowired
     private NeighborService neighborService;
+
+    @Autowired
+    private NeighborhoodService neighborhoodService;
 
     @GetMapping
     public ResponseEntity<List<CommonArea>> getAllCommonAreas() {
@@ -59,6 +61,14 @@ public class CommonAreaController {
             }
         }
         return ResponseEntity.notFound().build();
+    }
+
+    @PostMapping
+    public void createCommonArea(@RequestBody CommonAreaDTO commonAreaDTO) {
+        CommonArea commonArea = new CommonArea();
+        commonArea.setName(commonAreaDTO.getName());
+        commonArea.setNeighborhood(neighborhoodService.getNeighborhoodById(commonAreaDTO.getNeighborhoodId()));
+        commonAreaService.save(commonArea);
     }
 
     @DeleteMapping("/{id}")

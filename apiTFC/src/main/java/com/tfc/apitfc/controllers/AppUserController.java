@@ -53,7 +53,7 @@ public class AppUserController {
     public ResponseEntity<AppUser> findByEmail(@PathVariable String email) {
         AppUser user = appUserService.getUserByEmail(email);
 
-        if (user != null) {
+        if (user != null && user.getRole().equals("NEIGHBOR")) {
             return ResponseEntity.ok().body(user);
         } else {
             return ResponseEntity.noContent().build();

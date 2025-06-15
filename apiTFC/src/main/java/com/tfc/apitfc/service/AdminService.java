@@ -24,10 +24,6 @@ public class AdminService {
         return adminInterface.findByUserId(userId);
     }
 
-    public Admin getAdminByRegistrationNumber(String registrationNumber) {
-        return adminInterface.findByRegistrationNumber(registrationNumber);
-    }
-
     public void deleteAdminByRegistrationNumber(String registrationNumber) {
         Admin admin = adminInterface.findByRegistrationNumber(registrationNumber);
 
